@@ -1,8 +1,10 @@
 steps:
   - name: andreysenov/firebase-tools:12.4.7-node-lts-slim
+    dir: qwik-app
     entrypoint: npm
     args: ["run", "build.ssg"]
   - name: andreysenov/firebase-tools:12.4.7-node-lts-slim
+    dir: qwik-app
     args: ["deploy", "--project=poc-distributed-tracing", "--only=hosting"]
 options:
   volumes:
