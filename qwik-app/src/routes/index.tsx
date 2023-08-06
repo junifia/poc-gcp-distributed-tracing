@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import Tasks from "../components/tasks/tasks.tsx";
+import Tasks from "../components/tasks/tasks";
 
 export default component$(() => {
   return <Tasks />;
