@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "qwik-app"
+    },
+    {
+      "path": "task-service"
+    }
+  ],
+  "settings": {
+    "deno.enable": true,
+    "deno.lint": true,
+    "deno.unstable": false,
+    "files.exclude": { "qwik-app": true, "task-service": true },
+    "material-icon-theme.activeIconPack": "qwik"
+  },
+  "extensions": {
+    "recommendations": ["denoland.vscode-deno"]
+  }
+}
