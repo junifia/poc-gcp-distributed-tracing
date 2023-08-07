@@ -8,4 +8,4 @@ ADD . /app
 
 RUN deno cache main.ts
 
-CMD ["run", "--allow-net", "--allow-env",  "main.ts"]
+CMD ["run", "--allow-all", "main.ts"]
