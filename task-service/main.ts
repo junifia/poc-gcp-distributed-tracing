@@ -14,14 +14,21 @@ router
     context.response.body = ["Hello world!"];
   })
   .post("/logs", async (context) => {
-    const a = await context.request.body().value;
-    context.response.body = a;
-    console.log({ a: 1, ...a });
+    const body = await context.request.body().value;
+    context.response.body = body;
 
-    const log = logging.logSync("stdout");
-    const meta = { labels: { port: String(port) } };
-    const entry = log.entry(meta, "Your log message");
-    log.info(entry);
+    const traceHeader = context.request.headers.get("X-Cloud-Trace-Context");
+    const [trace] = traceHeader?.split("/") || [];
+
+    const meta = {
+      ...body,
+      labels: { a: 42 },
+      "logging.googleapis.com/trace": `projects/${logging.projectId}/traces/${trace}`,
+    };
+
+    const log = logging.logSync("process.stdout");
+    console.log(JSON.stringify({ ...meta, message: "with trace 2" }));
+    log.info(log.entry({}, "with trace"));
   })
   .post("/links", async (context) => {
     context.response.body = await context.request.body().value;
