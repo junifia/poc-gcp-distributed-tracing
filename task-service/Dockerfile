@@ -1,4 +1,4 @@
-FROM denoland/deno
+FROM node:lts
 
 EXPOSE 8000
 
@@ -6,6 +6,6 @@ WORKDIR /app
 
 ADD . /app
 
-RUN deno cache main.ts
+RUN npm ci
 
-CMD ["run", "--allow-all", "main.ts"]
+CMD ["index.mjs"]
