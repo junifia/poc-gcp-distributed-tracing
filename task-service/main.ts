@@ -21,20 +21,41 @@ router
     const host = context.request.headers.get("host");
     const location: string = logging.detectedResource?.labels?.location;
     if (location) {
-      const task = await tasksClient.createTask({
-        parent: tasksClient.queuePath(logging.projectId, location, "tt-tasks"),
-        task: {
-          httpRequest: {
-            httpMethod: "POST",
-            url: `https://${host}/logs`,
-            body: encode(JSON.stringify({})),
-            headers: {
-              "Content-Type": "application/json",
-              traceparent: context.request.headers.get("traceparent") || "",
+      const serviceAccountEmail = await fetch(
+        "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email",
+        { headers: { "Metadata-Flavor": "Google" } }
+      )
+        .then((r) => r.json())
+        .catch((e) => console.log(e));
+      console.log(serviceAccountEmail);
+      console.log(
+        tasksClient.queuePath(logging.projectId, location, "poc-tasks")
+      );
+
+      try {
+        const task = await tasksClient.createTask({
+          parent: tasksClient.queuePath(
+            logging.projectId,
+            location,
+            "poc-tasks"
+          ),
+          task: {
+            httpRequest: {
+              httpMethod: "POST",
+              url: `https://${host}/logs`,
+              body: encode(JSON.stringify({})),
+              headers: {
+                "Content-Type": "application/json",
+                traceparent: context.request.headers.get("traceparent") || "",
+              },
+              // oidcToken: { serviceAccountEmail },
             },
           },
-        },
-      });
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
       context.response.body = task;
     } else {
       console.log("skipped task creation");
