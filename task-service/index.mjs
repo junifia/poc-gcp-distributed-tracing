@@ -31,13 +31,14 @@ app.use((request, res, next) => {
 
   const { authorization, ...headers } = request.headers;
   const log = logging.logSync("stdout");
+  log.useMessageField_;
   log.info(
     log.entry(
       {
         labels: { a: "42" },
         spanId,
         trace: `projects/${logging.projectId}/traces/${traceId}`,
-        traceSampled: true,
+        traceSampled: true
       },
       {
         traceparent: request.get("traceparent"),
@@ -61,7 +62,7 @@ app.post("/tasks", async (request, res) => {
       { headers: { "Metadata-Flavor": "Google" } }
     ).then((r) => r.text());
 
-    const task = await tasksClient.createTask({
+    const results = await tasksClient.createTask({
       parent: tasksClient.queuePath(logging.projectId, location, "poc-tasks"),
       task: {
         httpRequest: {
@@ -77,7 +78,7 @@ app.post("/tasks", async (request, res) => {
       },
     });
 
-    res.send(task);
+    res.send(results);
   } else {
     console.log("skipped task creation");
   }
