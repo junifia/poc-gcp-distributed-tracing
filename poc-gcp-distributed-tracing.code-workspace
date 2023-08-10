@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "qwik-app"
+    },
+    {
+      "path": "task-service"
+    }
+  ],
+  "settings": {
+    "files.exclude": { "qwik-app": true, "task-service": true },
+    "deno.enable": false,
+    // "deno.enablePaths": ["task-service"],
+    "deno.lint": true,
+    "deno.unstable": false
+  },
+  "extensions": {
+    "recommendations": []
+  }
+}

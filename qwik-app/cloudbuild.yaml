@@ -1,0 +1,12 @@
+steps:
+  - name: gcr.io/poc-distributed-tracing/firebase
+    dir: qwik-app
+    entrypoint: npm
+    args: ["ci"]
+  - name: gcr.io/poc-distributed-tracing/firebase
+    dir: qwik-app
+    entrypoint: npm
+    args: ["run", "build.ssg"]
+  - name: gcr.io/poc-distributed-tracing/firebase
+    dir: qwik-app
+    args: ["deploy", "--project=poc-distributed-tracing", "--only=hosting"]
