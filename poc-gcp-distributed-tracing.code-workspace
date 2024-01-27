@@ -12,7 +12,7 @@
   ],
   "settings": {
     "files.exclude": { "qwik-app": true, "task-service": true },
-    "deno.enable": false,
+    "deno.enable": true,
     // "deno.enablePaths": ["task-service"],
     "deno.lint": true,
     "deno.unstable": false
