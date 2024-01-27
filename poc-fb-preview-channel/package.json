@@ -1,0 +1,13 @@
+{
+  "name": "poc-fb-preview-channel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo bb"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
